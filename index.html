@@ -1,45 +1,39 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Ejemplo de Geolocation</title>
+    <title>Ejemplo de Connection</title>
 
-    <script src="phonegap.js"></script>
+<script src="phonegap.js"></script>
     <script type="text/javascript" charset="utf-8">
 
-    // Espere a que PhoneGap se inicie
-    //
+    // Espera a que PhoneGap se inicie
+    // 
     document.addEventListener("deviceready", onDeviceReady, false);
 
-    // PhoneGap esta listo
+    // PhoneGap esta listo, y ahora se pueden hacer llamadas a los métodos
     //
     function onDeviceReady() {
-        navigator.geolocation.getCurrentPosition(onSuccess, onError);
+        checkConnection();
     }
 
-    // onSuccess Geolocation
-    //
-    function onSuccess(position) {
-        var element = document.getElementById('geolocation');
-        element.innerHTML = 'Latitud: '           + position.coords.latitude              + '<br />' +
-          'Longitud: '        + position.coords.longitude         + '\n' +
-          'Altitud: '         + position.coords.altitude          + '\n' +
-          'Precisión: '       + position.coords.accuracy          + '\n' +
-          'Precisión altitud' + position.coords.altitudeAccuracy  + '\n' +
-          'Dirección: '       + position.coords.heading           + '\n' +
-          'Velocidad: '       + position.coords.speed             + '\n' +
-          'Timestamp: '       + new Date(position.timestamp)      + '\n');
-    }
+    function checkConnection() {
+        var networkState = navigator.network.connection.type;
 
-    // La función 'callback' onError recibe un objeto `PositionError`.
-    //
-    function onError(error) {
-        alert('código: '    + error.code    + '\n' +
-              'mensaje: ' + error.message + '\n');
+        var states = {};
+    states[Connection.UNKNOWN]  = 'Conexión desconocida';
+    states[Connection.ETHERNET] = 'Conexión ethernet';
+    states[Connection.WIFI]     = 'Conexión WiFi';
+    states[Connection.CELL_2G]  = 'Conexión movil 2G';
+    states[Connection.CELL_3G]  = 'Conexión movil 3G';
+    states[Connection.CELL_4G]  = 'Conexión movil 4G';
+    states[Connection.NONE]     = 'Sin conexión';
+
+        alert('Tipo de conexión: ' + states[networkState]);
     }
 
     </script>
   </head>
   <body>
-    <p id="geolocation">Buscando geolocalización...</p>
+    <p>Un mensaje te notificara el tipo de conexión.</p>
   </body>
 </html>
