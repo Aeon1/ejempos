@@ -1,39 +1,37 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Ejemplo de Connection</title>
+    <title>Ejemplo de Compass</title>
 
-<script src="phonegap.js"></script>
+    <script src="phonegap.js"></script>
     <script type="text/javascript" charset="utf-8">
 
-    // Espera a que PhoneGap se inicie
-    // 
+    // Espera a que PhoneGap inicie
+    //
     document.addEventListener("deviceready", onDeviceReady, false);
 
-    // PhoneGap esta listo, y ahora se pueden hacer llamadas a los métodos
+    // PhoneGap esta listo
     //
     function onDeviceReady() {
-        checkConnection();
+        navigator.compass.getCurrentHeading(onSuccess, onError);
     }
 
-    function checkConnection() {
-        var networkState = navigator.network.connection.type;
+    // onSuccess: Obtiene el resultado
+    //
+    function onSuccess(heading) {
+        alert('Dirección: ' + heading);
+    }
 
-        var states = {};
-    states[Connection.UNKNOWN]  = 'Conexión desconocida';
-    states[Connection.ETHERNET] = 'Conexión ethernet';
-    states[Connection.WIFI]     = 'Conexión WiFi';
-    states[Connection.CELL_2G]  = 'Conexión movil 2G';
-    states[Connection.CELL_3G]  = 'Conexión movil 3G';
-    states[Connection.CELL_4G]  = 'Conexión movil 4G';
-    states[Connection.NONE]     = 'Sin conexión';
-
-        alert('Tipo de conexión: ' + states[networkState]);
+    // onError: Ocurrio un error
+    //
+    function onError() {
+        alert('onError!');
     }
 
     </script>
   </head>
   <body>
-    <p>Un mensaje te notificara el tipo de conexión.</p>
+    <h1>Ejemplo</h1>
+    <p>getCurrentHeading</p>
   </body>
 </html>
