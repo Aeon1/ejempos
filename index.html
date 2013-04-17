@@ -1,234 +1,102 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<title>Municipios</title>
-<link href="jquery-mobile/jquery.mobile-1.3.0.min.css" rel="stylesheet" type="text/css"/>
-<script src="jquery-mobile/jquery-1.9.1.min.js" type="text/javascript"></script>
-<script src="jquery-mobile/jquery.mobile-1.3.0.min.js" type="text/javascript"></script>
-</head> 
-<body > 
+  <head>
+    <title>Ejemplo de Camera</title>
 
-<div data-role="page" id="page" >
-  <div data-role="header" data-position="fixed">
-		<h1>Municipios</h1>
-	</div>
-	<div data-role="content">	
-		<ul data-role="listview">
-			<li><a href="#page2" data-transition="pop" >El fuerte</a></li>
-		</ul>		
-	</div>
-	<div data-role="footer">
-	</div>
-</div>
+    <script src="phonegap.js"></script>
+    <script type="text/javascript" charset="utf-8">
 
-<div data-role="page" id="page2">
+    var pictureSource;   // Origen de la imagen
+    var destinationType; // Formato del valor retornado
 
-	<div data-role="header" data-position="fixed">
-    <a href="#page" data-role="button" data-icon="arrow-l" data-iconpos="left" data-transition="flip" data-inline="true">Atras</a>
-		<h1>El fuerte</h1>
-	</div>
-	<div data-role="content" >	
-		<p>Tiempo</p>
-<div id="TT_RChALhdhtBBcY8IUKfqDjjjDj6lU1zWFLtEtkcioaEz"></div>
-<script type="text/javascript" src="http://www.tutiempo.net/widget/eltiempo_RChALhdhtBBcY8IUKfqDjjjDj6lU1zWFLtEtkcioaEz"></script>
-<h1>El fuerte pueblo magico</h1> 
- <a href="#popupMenu" data-rel="popup" data-role="button" data-icon="bars" data-iconpos="notext" data-theme="c" data-inline="true" style="float: right;">Menu de actividades</a>
-<div data-role="popup" id="popupMenu" data-theme="d">
-        <ul data-role="listview" data-inset="true" style="min-width:210px;" data-theme="d">
-            <li data-role="divider" data-theme="e">Conoce mas</li>
-            <li><a href="#gastronomia" data-transition="flip">Gastronomia</a></li>
-            <li><a href="#diversion" data-transition="flip">Diversion</a></li>
-            <li><a href="#lughis" data-transition="flip">Lugares historicos</a></li>
-            <li><a href="#mapa" data-transition="flip">Mapa</a></li>
-            <li><a href="#act24" data-transition="flip">Actividades en 24 horas</a></li>
-            <li><a href="#emergencias" data-transition="flip">Emergencias</a></li>
-        </ul>
-</div>
-			</div>
-</div>
-<div data-role="page" id="gastronomia">
-<div data-role="header" data-position="fixed">
-    <a href="#" data-role="button" data-icon="arrow-l" data-rel="back" data-iconpos="left" data-transition="flip" data-inline="true">Atras</a>
-		<h1>El fuerte</h1>
-	</div>
-    <div data-role="content" >	
-    <h1>Gastronomia tipica de El fuerte</h1>
-    
-    <a href="#comida1" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="img/tacos_avo.jpg"  style="width:20%"></a>
-<a href="#comida2" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="img/recetas-mexicanas.jpg"  style="width:20%"></a>
-<a href="#comida3" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="img/taco1.jpg" style="width:20%"></a>
+    // Espera a que PhoneGap conecte con el dispositivo.
+    //
+    document.addEventListener("deviceready",onDeviceReady,false);
 
-<div data-role="popup" id="comida1" data-overlay-theme="a" data-theme="d" data-corners="false">
-    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a><img class="popphoto" src="img/tacos_avo.jpg" style="max-height:512px;" >
-</div>
+    // PhoneGap esta listo para usarse!
+    //
+    function onDeviceReady() {
+        pictureSource=navigator.camera.PictureSourceType;
+        destinationType=navigator.camera.DestinationType;
+    }
 
-<div data-role="popup" id="comida2" data-overlay-theme="a" data-theme="d" data-corners="false">
-    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a><img class="popphoto" src="img/recetas-mexicanas.jpg" style="max-height:512px;" >
-</div>
+    // Llamada cuando la foto se retorna sin problemas
+    //
+    function onPhotoDataSuccess(imageData) {
+      // Descomenta esta linea para ver la imagen codificada en base64
+      // console.log(imageData);
 
-<div data-role="popup" id="comida3" data-overlay-theme="a" data-theme="d" data-corners="false">
-    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a><img class="popphoto" src="img/taco1.jpg" style="max-height:512px;" >
-</div>
-    </div>
-    </div>
-<div data-role="page" id="diversion">
-<div data-role="header" data-position="fixed">
-  <a href="#" data-role="button" data-icon="arrow-l" data-rel="back" data-iconpos="left" data-transition="flip" data-inline="true">Atras</a>
-		<h1>El fuerte</h1>
-</div>
-<div data-role="content" >	 
-<ul data-role="listview" data-inset="true" style="min-width:210px;" data-theme="d">
-            <li data-role="divider" data-theme="e">Diversion</li>
-            <li><a href="#d1" data-transition="pop">Centro de Diversion Celia</a></li>
-            <li><a href="#d2" data-transition="pop">Centro de Diversion</a></li>
-            
-        </ul>
-</div>
-</div>
-<div data-role="page" id="d1">
-<div data-role="header" data-position="fixed">
-  <a href="#" data-role="button" data-icon="arrow-l" data-rel="back" data-iconpos="left" data-transition="flip" data-inline="true">Atras</a>
-		<h1>El fuerte</h1>
-</div>
-<div data-role="content" >	 
-<h1>Centro de Diversion Celia</h1>
-<p>Casas de Juegos Electronicos. Buen precio, calidad y servicio, todo pueden encontrarse en Centro de Diversion Celia. Si est&aacute; buscando Juegos Electronicos en El Fuerte, somos su mejor opci&oacute;n. Nos gusta que nuestros clientes vuelvan y repitan con nosotros. Puede encontrarnos en Avenida 5 de Mayo S/N de El Fuerte en Sinaloa</p>
-</div>
-</div>
-<div data-role="page" id="d2">
-<div data-role="header" data-position="fixed">
-  <a href="#" data-role="button" data-icon="arrow-l" data-rel="back" data-iconpos="left" data-transition="flip" data-inline="true">Atras</a>
-		<h1>El fuerte</h1>
-</div>
-<div data-role="content" >	 
-<h1>Centro de Diversion</h1>
-<p>Casas de Juegos Electronicos. La mejor elecci&oacute;n es Centro de Diversion para cubrir sus necesidades en Juegos Electronicos. Profesionales competentes en Juegos Electronicos, consiga el mejor servicio con la mayor seriedad. Le esperamos en Sinaloa, no deje la oportunidad de conocernos en El Fuerte</p>
-</div>
-</div>
+      // Obtiene el elemento HTML de la imagen
+      //
+      var smallImage = document.getElementById('smallImage');
 
+      // Revela el elemento de la imagen
+      //
+      smallImage.style.display = 'block';
 
+      // Muestra la foto capturada
+      // Se usan reglas CSS para dimensionar la imagen
+      //
+      smallImage.src = "data:image/jpeg;base64," + imageData;
+    }
 
-<div data-role="page" id="lughis">
-<div data-role="header" data-position="fixed">
-  <a href="#" data-role="button" data-icon="arrow-l" data-rel="back" data-iconpos="left" data-transition="flip" data-inline="true">Atras</a>
-		<h1>El fuerte</h1>
-</div>
-<div data-role="content" >	 
-<ul data-role="listview" data-inset="true" style="min-width:210px;" data-theme="d">
-            <li data-role="divider" data-theme="e">Lugares historicos</li>
-            <li><a href="#lh1" data-transition="pop">Palacio Municipal</a></li>
-            <li><a href="#lh2" data-transition="pop">Plaza de la constituci&oacute;n</a></li>
-            <li><a href="#lh3" data-transition="pop">La Iglesia del Sagrado coraz&oacute;n de Jes&uacute;s</a></li>
-            <li><a href="#lh4" data-transition="pop">Los portales</a></li>
-            <li><a href="#lh5" data-transition="pop">Museo - Fuerte - Mirador</a></li>
-        </ul>
-</div>
-</div>
+    // Llamada cuando la foto se retorna sin problemas
+    //
+    function onPhotoURISuccess(imageURI) {
+      // Descomenta esta linea para ver la ruta URI al fichero de imagen 
+      // console.log(imageURI);
 
-<div data-role="page" id="lh1">
-<div data-role="header" data-position="fixed">
-  <a href="#" data-role="button" data-icon="arrow-l" data-rel="back" data-iconpos="left" data-transition="flip" data-inline="true">Atras</a>
-		<h1>El fuerte</h1>
-</div>
-<div data-role="content" >	
-<a href="#imgf1" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="img/palacio-municipal.jpg" style="width:100%"/></a>
-<div data-role="popup" id="imgf1" data-overlay-theme="a" data-theme="d" data-corners="false">
-    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a><img class="popphoto" src="img/palacio-municipal.jpg" style="max-height:512px;" />
-</div> 
-<h1>PALACIO MUNICIPAL</h1>
-<p>Se inicio su construcci&oacute;n en 1903 siendo el Prefecto Pol&iacute;tico del Distrito de El Fuerte Rafael J. Almada. El dise&ntilde;o estuvo a cargo del Ing. Francisco Salido y la obra estuvo bajo la direcci&oacute;n del maestro Manuel Casta&ntilde;eda. La obra fue terminada en 1907. Edificio de dos plantas construido casi en su totalidad de ladrillo, pues solo en la parte posterior tiene pare de cantera, con un patio central circundado de portales con arquer&iacute;as que se corresponden con los del piso superior.</p>
+      // Obtiene el elemento HTML de la imagen
+      //
+      var largeImage = document.getElementById('largeImage');
 
-</div>
-</div>
-<div data-role="page" id="lh2">
-<div data-role="header" data-position="fixed">
-  <a href="#" data-role="button" data-icon="arrow-l" data-rel="back" data-iconpos="left" data-transition="flip" data-inline="true">Atras</a>
-		<h1>El fuerte</h1>
-</div>
-<div data-role="content" >	 
-<h1>PLAZA DE LA CONSTITUCI&Oacute;N</h1>
-<a href="#imgf2" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="img/detalle_kiosco_.jpg" style="width:100%"/></a>
-<div data-role="popup" id="imgf2" data-overlay-theme="a" data-theme="d" data-corners="false">
-    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a><img class="popphoto" src="img/detalle_kiosco_.jpg" style="max-height:512px;" />
-</div>
-<p>Entre 1800 y 1850, en este terreno bald&iacute;o, se concentraba la poblaci&oacute;n para celebraciones religiosas, c&iacute;vicas, militares, tradicionales. Para 1850 ya se le designaba Plaza de Armas contando con apenas elementos necesarios para estas celebraciones.
-La plazuela es el punto de reuni&oacute;n de toda la sociedad fuertense que suele pasear los fines de semana para disfrutar de domingos culturales que se desarrollan en el Hemiciclo a Ju&aacute;rez donde se presentan artistas regionales, estatales y nacionales as&iacute; como se muestra lo logrado en las artes por las instituciones educativas.</p>
+      // Revela el elemento de la imagen
+      //
+      largeImage.style.display = 'block';
 
-</div>
-</div>
-<div data-role="page" id="lh3">
-<div data-role="header" data-position="fixed">
-  <a href="#" data-role="button" data-icon="arrow-l" data-rel="back" data-iconpos="left" data-transition="flip" data-inline="true">Atras</a>
-		<h1>El fuerte</h1>
-</div>
-<div data-role="content" >	
-<a href="#imgf3" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="img/iglesia.jpg" style="width:100%"/></a>
-<div data-role="popup" id="imgf3" data-overlay-theme="a" data-theme="d" data-corners="false">
-    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a><img class="popphoto" src="img/iglesia.jpg" style="max-height:512px;" />
-</div> 
-<h1>TEMPLO DEL SAGRADO CORAZ&Oacute;N DE JES&Uacute;S</h1>
-<p>Por un informe que dio el Obispo Don Pedro Tamaron y Romeral, en visita pastoral a El Fuerte en 1760, se sabe que en esa fecha el templo estaba en construcci&oacute;n sustituyendo a la modesta iglesia de adobe que se ubicaba en el Cerro de Montesclaros.</p>
+      // Muestra la foto capturada
+      // Se usan reglas CSS para dimensionar la imagen
+      //
+      largeImage.src = imageURI;
+    }
 
-</div>
-</div>
-<div data-role="page" id="lh4">
-<div data-role="header" data-position="fixed">
-  <a href="#" data-role="button" data-icon="arrow-l" data-rel="back" data-iconpos="left" data-transition="flip" data-inline="true">Atras</a>
-		<h1>El fuerte</h1>
-</div>
-<div data-role="content" >	 
-<h1>LOS PORTALES</h1>
-<a href="#imgf4" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="img/los-portales.jpg" style="width:100%"/></a>
-<div data-role="popup" id="imgf4" data-overlay-theme="a" data-theme="d" data-corners="false">
-    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a><img class="popphoto" src="img/los-portales.jpg" style="max-height:512px;" />
-</div>
-<p>No pueden faltar los famosos portales en la ciudad tan Antigua como El Fuerte. Se localizan al costado poniente de la plaza de armas, adosadas a dos construcciones del siglo XVIII. Los portales est&aacute;n sostenidos por columnas de piedra tallada de forma prism&aacute;tica, pero las columnas m&aacute;s pr&oacute;ximas al Templo del Sagrado Coraz&oacute;n son cil&iacute;ndricas.</p>
+    // Un botón llamara a esta función
+    //
+    function capturePhoto() {
+      // Toma la imagen y la retorna como una string codificada en base64
+      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50 });
+    }
 
-</div>
-</div>
-<div data-role="page" id="lh5">
-<div data-role="header" data-position="fixed">
-  <a href="#" data-role="button" data-icon="arrow-l" data-rel="back" data-iconpos="left" data-transition="flip" data-inline="true">Atras</a>
-		<h1>El fuerte</h1>
-</div>
-<div data-role="content" >	
-<a href="#imgf5" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="img/fachada_museo_del_fuerte.jpg" style="width:100%"/></a>
-<div data-role="popup" id="imgf5" data-overlay-theme="a" data-theme="d" data-corners="false">
-    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a><img class="popphoto" src="img/fachada_museo_del_fuerte.jpg" style="max-height:512px;" />
-</div> 
-<h1>MUSEO- FUERTE- MIRADOR</h1>
-<p>En la parte alta de la llamada Loma de La Pila en 2001 se construyo una gran mole de piedra de cantera como una remembranza del fuerte presidio colonial que, seg&uacute;n los historiadores se construy&oacute; en este sitio en el siglo XVII.</p>
+    // Un botón llamara a esta función
+    //
+    function capturePhotoEdit() {
+      // Toma la imagen, permite editarla y la retorna como una string codificada en base64
+      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 20, allowEdit: true }); 
+    }
 
-</div>
-</div>
+    // Un botón llamara a esta función
+    //
+    function getPhoto(source) {
+      // Retorna la ruta del fichero de imagen desde el origen especificado
+      navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50, 
+        destinationType: destinationType.FILE_URI,
+        sourceType: source });
+    }
 
-<div data-role="page" id="mapa">
-<div data-role="header" data-position="fixed">
-  <a href="#" data-role="button" data-icon="arrow-l" data-rel="back" data-iconpos="left" data-transition="flip" data-inline="true">Atras</a>
-		<h1>El fuerte</h1>
-</div>
-<div data-role="content" >	 
+    // Llamado cuando algo malo ocurre
+    // 
+    function onFail(message) {
+      alert('Ocurrió un error: ' + message);
+    }
 
-</div>
-</div>
-<div data-role="page" id="act24">
-<div data-role="header" data-position="fixed">
-  <a href="#" data-role="button" data-icon="arrow-l" data-rel="back" data-iconpos="left" data-transition="flip" data-inline="true">Atras</a>
-		<h1>El fuerte</h1>
-</div>
-<div data-role="content" >	 
-</div>
-</div>
-
-<div data-role="page" id="emergencias">
-<div data-role="header" data-position="fixed">
-  <a href="#" data-role="button" data-icon="arrow-l" data-rel="back" data-iconpos="left" data-transition="flip" data-inline="true">Atras</a>
-		<h1>El fuerte</h1>
-</div>
-<div data-role="content" >	 
-</div>
-</div>
-
-</body>
+    </script>
+  </head>
+  <body>
+    <button onclick="capturePhoto();">Capturar foto</button> <br>
+    <button onclick="capturePhotoEdit();">Capturar foto editable</button> <br>
+    <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">Desde la librería de imágenes</button><br>
+    <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">Desde el álbum de fotos</button><br>
+    <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
+    <img style="display:none;" id="largeImage" src="" />
+  </body>
 </html>
