@@ -1,37 +1,51 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Ejemplo de Compass</title>
+    <title>Ejemplo de FileWriter</title>
 
-    <script src="phonegap.js"></script>
+    <script type="text/javascript" charset="utf-8" src="phonegap-1.0.0.js"></script>
     <script type="text/javascript" charset="utf-8">
 
-    // Espera a que PhoneGap inicie
+    // Espera a que PhoneGap se inicie
     //
     document.addEventListener("deviceready", onDeviceReady, false);
 
-    // PhoneGap esta listo
+    // PhoneGap esta lista
     //
     function onDeviceReady() {
-        navigator.compass.getCurrentHeading(onSuccess, onError);
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
     }
 
-    // onSuccess: Obtiene el resultado
-    //
-    function onSuccess(heading) {
-        alert('Dirección: ' + heading);
+    function gotFS(fileSystem) {
+        fileSystem.root.getFile("leeme.txt", {create: true}, gotFileEntry, fail); 
     }
 
-    // onError: Ocurrio un error
-    //
-    function onError() {
-        alert('onError!');
+    function gotFileEntry(fileEntry) {
+        fileEntry.createWriter(gotFileWriter, fail);
+    }
+
+    function gotFileWriter(writer) {
+        writer.onwrite = function(evt) {
+            console.log("Se escribió satisfactoriamente");
+        };
+        writer.write("some sample text");
+        // El contenido del fichero ahora es 'some sample text'
+        writer.truncate(11);
+        // El contenido del fichero ahora es 'some sample'
+        writer.seek(4);
+        // El contenido del fichero aun es 'some sample' pero el puntero apunta después del carácter 'e' de 'some'
+        writer.write(" different text");
+        // El contenido del fichero ahora es 'some different text'
+    }
+
+    function fail(error) {
+        console.log(error.code);
     }
 
     </script>
   </head>
   <body>
     <h1>Ejemplo</h1>
-    <p>getCurrentHeading</p>
+    <p>Escritura de ficheros</p>
   </body>
 </html>
