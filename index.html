@@ -1,62 +1,64 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Ejemplo de FileReader</title>
+    <title>Ejemplo de Storage</title>
 
     <script type="text/javascript" charset="utf-8" src="phonegap-1.0.0.js"></script>
     <script type="text/javascript" charset="utf-8">
 
-    // Espera a que phonegap se inicie
+    // Espera a que PhoneGap se inicie
     //
-    function onLoad() {
-        document.addEventListener("deviceready", onDeviceReady, false);
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    // Rellena la base de datos
+    //
+    function populateDB(tx) {
+        tx.executeSql('DROP TABLE IF EXISTS DEMO');
+        tx.executeSql('CREATE TABLE IF NOT EXISTS DEMO (id unique, data)');
+        tx.executeSql('INSERT INTO DEMO (id, data) VALUES (1, "Primera fila")');
+        tx.executeSql('INSERT INTO DEMO (id, data) VALUES (2, "Segunda fila")');
+    }
+
+    // Consulta a la base de datos
+    //
+    function queryDB(tx) {
+        tx.executeSql('SELECT * FROM DEMO', [], querySuccess, errorCB);
+    }
+
+    // Función 'callback' con el resultado de la consulta
+    //
+    function querySuccess(tx, results) {
+        var len = results.rows.length;
+        console.log("Tabla DEMO: " + len + " filas encontradas.");
+        for (var i=0; i<len; i++){
+            console.log("Fila = " + i + " ID = " + results.rows.item(i).id + " Datos =  " + results.rows.item(i).data);
+        }
+    }
+
+    // Función 'callback' de error de transacción
+    //
+    function errorCB(err) {
+        console.log("Error procesando SQL: "+err.code);
+    }
+
+    // Función 'callback' de transacción correcta
+    //
+    function successCB() {
+        var db = window.openDatabase("Database", "1.0", "Demo PhoneGap", 200000);
+        db.transaction(queryDB, errorCB);
     }
 
     // PhoneGap esta listo
     //
     function onDeviceReady() {
-        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
-    }
-
-    function gotFS(fileSystem) {
-        fileSystem.root.getFile("readme.txt", {create: true}, gotFileEntry, fail);
-    }
-
-    function gotFileEntry(fileEntry) {
-        fileEntry.file(gotFile, fail);
-    }
-
-    function gotFile(file){
-        readDataUrl(file);
-        readAsText(file);
-    }
-
-    function readDataUrl(file) {
-        var reader = new FileReader();
-        reader.onloadend = function(evt) {
-            console.log("Read as data URL");
-            console.log(evt.target.result);
-        };
-        reader.readAsDataURL(file);
-    }
-
-    function readAsText(file) {
-        var reader = new FileReader();
-        reader.onloadend = function(evt) {
-            console.log("Read as text");
-            console.log(evt.target.result);
-        };
-        reader.readAsText(file);
-    }
-
-    function fail(evt) {
-        console.log(evt.target.error.code);
+        var db = window.openDatabase("Database", "1.0", "Demo PhoneGap", 200000);
+        db.transaction(populateDB, errorCB, successCB);
     }
 
     </script>
   </head>
   <body>
     <h1>Ejemplo</h1>
-    <p>Lectura de ficheros</p>
+    <p>Database</p>
   </body>
 </html>
