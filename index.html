@@ -32,6 +32,7 @@
         console.log("Tabla DEMO: " + len + " filas encontradas.");
         for (var i=0; i<len; i++){
             console.log("Fila = " + i + " ID = " + results.rows.item(i).id + " Datos =  " + results.rows.item(i).data);
+            document.getElementById('resultado').innerHTML=("Fila = " + i + " ID = " + results.rows.item(i).id + " Datos =  " + results.rows.item(i).data);
         }
     }
 
@@ -59,6 +60,6 @@
   </head>
   <body>
     <h1>Ejemplo</h1>
-    <p>Database</p>
+    <p id="resultado">Database</p>
   </body>
 </html>
