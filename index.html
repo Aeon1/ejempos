@@ -2,37 +2,44 @@
 <html>
   <head>
     <title>Ejemplo de Storage</title>
-
-    <script type="text/javascript" charset="utf-8" src="phonegap-1.0.0.js"></script>
+    <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+    <link rel="stylesheet" href="jquery-mobile/jquery.mobile-1.3.1.min.css" />
+    <script src="jquery-mobile/jquery-1.9.1.min.js"></script>
+	<script src="jquery-mobile/jquery.mobile-1.3.1.min.js"></script>
+    <script src="jquery-mobile/funciones.js"></script>
     <script type="text/javascript" charset="utf-8">
-
+    
     // Espera a que PhoneGap se inicie
     //
     document.addEventListener("deviceready", onDeviceReady, false);
 
-    // Rellena la base de datos
+    //checar si bd existe
     //
     function populateDB(tx) {
-        tx.executeSql('DROP TABLE IF EXISTS DEMO');
-        tx.executeSql('CREATE TABLE IF NOT EXISTS DEMO (id unique, data)');
-        tx.executeSql('INSERT INTO DEMO (id, data) VALUES (1, "Primera fila")');
-        tx.executeSql('INSERT INTO DEMO (id, data) VALUES (2, "Segunda fila")');
+        tx.executeSql('create table if not exists identificador (id unique, clave, correo)');
+    }
+    
+    //cargar datos
+    function insertar(tx){  
+        var clave=$('#clave').val();
+        tx.executeSql('INSERT INTO identificador (id, clave,correo) VALUES (1, '+ clave +',"joel.r@live.com")');
     }
 
     // Consulta a la base de datos
     //
     function queryDB(tx) {
-        tx.executeSql('SELECT * FROM DEMO', [], querySuccess, errorCB);
+        tx.executeSql('SELECT * FROM identificador', [], querySuccess, errorCB);
     }
 
     // Función 'callback' con el resultado de la consulta
     //
     function querySuccess(tx, results) {
         var len = results.rows.length;
-        console.log("Tabla DEMO: " + len + " filas encontradas.");
+       // console.log("Tabla demostracion: " + len + " filas encontradas.");
         for (var i=0; i<len; i++){
-            console.log("Fila = " + i + " ID = " + results.rows.item(i).id + " Datos =  " + results.rows.item(i).data);
-            document.getElementById('resultado').innerHTML=("Fila = " + i + " ID = " + results.rows.item(i).id + " Datos =  " + results.rows.item(i).data);
+            $('#resultado').append("Tabla demostracion: " + len + " filas encontradas.");
+            $('#resultado').append(" ID = " + results.rows.item(i).id + " clave =  " + results.rows.item(i).clave+ " correo =  " + results.rows.item(i).correo);
+        
         }
     }
 
@@ -44,7 +51,7 @@
 
     // Función 'callback' de transacción correcta
     //
-    function successCB() {
+    function checar() {
         var db = window.openDatabase("Database", "1.0", "Demo PhoneGap", 200000);
         db.transaction(queryDB, errorCB);
     }
@@ -53,13 +60,55 @@
     //
     function onDeviceReady() {
         var db = window.openDatabase("Database", "1.0", "Demo PhoneGap", 200000);
-        db.transaction(populateDB, errorCB, successCB);
+        db.transaction(populateDB, errorCB);
+    }
+    
+    //llamar funcion de cargar datos en bd
+    function xx(){
+        var db = window.openDatabase("Database", "1.0", "Demo PhoneGap", 200000);
+        db.transaction(insertar);
     }
 
     </script>
   </head>
   <body>
-    <h1>Ejemplo</h1>
-    <p id="resultado">Database</p>
+  <div data-role="page">
+
+	<div data-role="header">
+		<h1>configuracion</h1>
+	</div><!-- /header -->
+	<div data-role="content">
+   <form>
+   <input type="text" id="clave" name="clave" value="" />
+    <fieldset data-role="controlgroup" data-type="horizontal">
+        <legend>&iquest;tipo de ingreso?</legend>
+        <input type="radio" name="radio" id="radio-choice-h-2a" value="fijo" checked="checked">
+        <label for="radio-choice-h-2a">Fijo</label>
+        <input type="radio" name="radio" id="radio-choice-h-2b" value="variable">
+        <label for="radio-choice-h-2b">Variable</label>
+    </fieldset>
+    <div id="dpc">
+    <label>&iquest;Cuanto gano?</label><input type="number" name="sueldo" id="sueldo" />
+    </div>
+    <input type="button" value="enviar" id="save_sueldo" onclick="xx()" />
+    <input type="button" value="checar" onclick="checar()" />
+    <p id="resultado" style="border: 1px solid;"></p>
+</form>
+			
+	</div><!-- /content -->
+
+</div><!-- /page -->
+
+<div data-role="page">
+
+	<div data-role="header">
+		<h1>configuracion</h1>
+	</div><!-- /header -->
+
+	<div data-role="content">	
+				
+	</div><!-- /content -->
+
+</div><!-- /page -->
   </body>
 </html>
